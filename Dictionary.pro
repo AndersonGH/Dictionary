@@ -7,4 +7,5 @@ SOURCES += \
         main.cpp
 
 HEADERS += \
-    avl.h
+    avl.h \
+    dictionary.h

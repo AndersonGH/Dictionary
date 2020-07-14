@@ -1,18 +1,18 @@
 #include <iostream>
 #include <map>
-#include <avl.h>
+#include "dictionary.h"
 
 
 
 
 int main(){
-    Avl <int,int> tree;
-    tree.insert(20,0);
-    tree.insert(9,0);
-    tree.insert(30,0);
-    tree.insert(40,0);
-    tree.insert(25,0);
-    tree.insert(26,0);
-    tree.insert(8,0);
+    Dictionary <int,int> *dic = new My_dictionary <int,int> ();
+    dic->Set(25,0);
+    dic->Set(10,0);
+    dic->Set(35,0);
+    dic->Set(5,0);
+    dic->Set(12,0);
+    dic->Set(4,0);
+
     return 0;
 }

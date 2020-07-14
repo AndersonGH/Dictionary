@@ -1,7 +1,8 @@
-#include <cstddef>
-#include <algorithm>
 #ifndef AVL_H
 #define AVL_H
+
+#include <cstddef>
+#include <algorithm>
 
 template<class TKey, class TValue>
 struct Node{
@@ -18,15 +19,19 @@ class Avl{
 public:
     Avl();
     void insert(const TKey& key, const TValue& value);
-    void leftRotation(Node <TKey, TValue> *&);
-    void rightRotation(Node <TKey, TValue> *&);
     ~Avl();
-    Node <TKey, TValue> *root;
-    void balance(Node <TKey, TValue> *&);
+
+
+
 private:
     int height(Node <TKey, TValue> *);
     void freeAvl(Node <TKey, TValue> *);
     void insert(const TKey& key, const TValue& value, Node <TKey, TValue> *&);
+    void balance(Node <TKey, TValue> *&);
+    void leftRotation(Node <TKey, TValue> *&);
+    void rightRotation(Node <TKey, TValue> *&);
+
+    Node <TKey, TValue> *root = nullptr;
 
 };
 
@@ -61,7 +66,7 @@ int Avl<TKey,TValue>::height(Node <TKey, TValue> *node){
 
 template<class TKey, class TValue>
 void Avl<TKey,TValue>::rightRotation(Node <TKey, TValue> *&node){
-    Node <TKey, TValue> *copy = node->left;//20
+    Node <TKey, TValue> *copy = node->left;
     node->left = copy->right;
     copy->right = node;
     node = copy;
@@ -74,7 +79,7 @@ Avl<TKey,TValue>::~Avl(){
 }
 
 template<class TKey, class TValue>
-Avl<TKey,TValue>::Avl():root(nullptr){}
+Avl<TKey,TValue>::Avl(){}
 
 template<class TKey, class TValue>
 void Avl<TKey,TValue>::insert(const TKey& k, const TValue& v, Node <TKey, TValue> *& par){

@@ -14,11 +14,7 @@ int main(){
     dic->Set(5,0);
     dic->Set(12,0);
     dic->Set(4,0);
-    try {
-    std::cout << dic->Get(100);
-    } catch (NotFoundException <int> & e) {
-        std::cout << e.GetKey();
-    }
+    std::cout << dic->IsSet(100);
 
     return 0;
 }

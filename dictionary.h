@@ -46,7 +46,9 @@ const TValue& My_dictionary<TKey,TValue>::Get(const TKey& key) const{
 }
 
 template<class TKey, class TValue>
-bool My_dictionary<TKey,TValue>::IsSet(const TKey& key) const{}
+bool My_dictionary<TKey,TValue>::IsSet(const TKey& key) const{
+    return data->IsSet(key);
+}
 
 
 

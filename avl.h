@@ -22,7 +22,6 @@ public:
     void set(const TKey& key, const TValue& value);
     const TKey& find(const TKey& key);
     bool IsSet(const TKey& key) const;
-
     ~Avl();
 
 private:
@@ -65,9 +64,9 @@ bool Avl<TKey,TValue>::IsSet(const TKey& key,Node <TKey, TValue> * node) const {
         return true;
     }
     else if(node->key > key)
-        find(key, node->left);
+        IsSet(key, node->left);
     else
-        find(key, node->right);
+        IsSet(key, node->right);
 }
 
 template<class TKey, class TValue>

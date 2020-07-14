@@ -21,10 +21,12 @@ public:
     Avl();
     void set(const TKey& key, const TValue& value);
     const TKey& find(const TKey& key);
+    bool IsSet(const TKey& key) const;
 
     ~Avl();
 
 private:
+    bool IsSet(const TKey& key, Node <TKey, TValue> *) const;
     Node <TKey, TValue> * find(const TKey& key, Node <TKey, TValue> *);
     int height(Node <TKey, TValue> *);
     void freeAvl(Node <TKey, TValue> *);
@@ -48,6 +50,26 @@ void Avl<TKey,TValue>::freeAvl(Node <TKey, TValue> * node){
         delete node;
     }
 }
+
+template<class TKey, class TValue>
+bool Avl<TKey,TValue>::IsSet(const TKey& key) const {
+    return IsSet(key,root);
+}
+
+
+template<class TKey, class TValue>
+bool Avl<TKey,TValue>::IsSet(const TKey& key,Node <TKey, TValue> * node) const {
+    if(node == nullptr)
+        return false;
+    if(node->key == key){
+        return true;
+    }
+    else if(node->key > key)
+        find(key, node->left);
+    else
+        find(key, node->right);
+}
+
 template<class TKey, class TValue>
 void Avl<TKey,TValue>::leftRotation(Node <TKey, TValue> *&node){
     Node <TKey, TValue> *copy = node->right;

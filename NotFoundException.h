@@ -13,7 +13,7 @@ template<class TKey>
 class MyNotFoundException: public NotFoundException <TKey>{
 public:
     MyNotFoundException(const TKey&);
-    const TKey& GetKey() const;
+    const TKey& GetKey() const noexcept;
 private:
     TKey key;
 
@@ -23,7 +23,7 @@ template<class TKey>
 MyNotFoundException<TKey>::MyNotFoundException(const TKey& key): key(key){}
 
 template<class TKey>
-const TKey& MyNotFoundException<TKey>::GetKey() const{
+const TKey& MyNotFoundException<TKey>::GetKey() const noexcept{
     return key;
 }
 

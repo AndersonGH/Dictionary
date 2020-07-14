@@ -39,11 +39,11 @@ void My_dictionary<TKey,TValue>::Set(const TKey& key, const TValue& value){
 template<class TKey, class TValue>
 const TValue& My_dictionary<TKey,TValue>::Get(const TKey& key) const{
     try {
-
+        return data->find(key);
     } catch (NotFoundException <TKey> & e) {
-
+        throw MyNotFoundException<TKey>(e.GetKey());
     }
-    return data->find(key);
+
 }
 
 template<class TKey, class TValue>

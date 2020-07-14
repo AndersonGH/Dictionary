@@ -1,6 +1,7 @@
 #ifndef AVL_H
 #define AVL_H
 
+#include "NotFoundException.h"
 #include <cstddef>
 #include <algorithm>
 
@@ -18,23 +19,22 @@ template<class TKey, class TValue>
 class Avl{
 public:
     Avl();
-    void insert(const TKey& key, const TValue& value);
+    void set(const TKey& key, const TValue& value);
+    const TKey& find(const TKey& key);
+
     ~Avl();
 
-
-
 private:
+    Node <TKey, TValue> * find(const TKey& key, Node <TKey, TValue> *);
     int height(Node <TKey, TValue> *);
     void freeAvl(Node <TKey, TValue> *);
-    void insert(const TKey& key, const TValue& value, Node <TKey, TValue> *&);
+    void set(const TKey& key, const TValue& value, Node <TKey, TValue> *&);
     void balance(Node <TKey, TValue> *&);
     void leftRotation(Node <TKey, TValue> *&);
     void rightRotation(Node <TKey, TValue> *&);
-
     Node <TKey, TValue> *root = nullptr;
 
 };
-
 
 template<class TKey, class TValue>
 Node<TKey,TValue>::Node(const TKey& k, const TValue& v, Node *l , Node *r):
@@ -54,6 +54,28 @@ void Avl<TKey,TValue>::leftRotation(Node <TKey, TValue> *&node){
     node->right = copy->left;
     copy->left = node;
     node = copy;
+}
+
+template<class TKey, class TValue>
+const TKey& Avl<TKey,TValue>::find(const TKey& key){
+    Node <TKey, TValue> * node = find(key, root);
+    if(node)
+        return node->val;
+    else
+        throw MyNotFoundException<TKey>(key);
+}
+
+template<class TKey, class TValue>
+Node <TKey, TValue> * Avl<TKey,TValue>::find(const TKey& key, Node <TKey, TValue> * node){
+    if(node == nullptr)
+        return nullptr;
+    if(node->key == key){
+        return node;
+    }
+    else if(node->key > key)
+        find(key, node->left);
+    else
+        find(key, node->right);
 }
 
 
@@ -82,19 +104,19 @@ template<class TKey, class TValue>
 Avl<TKey,TValue>::Avl(){}
 
 template<class TKey, class TValue>
-void Avl<TKey,TValue>::insert(const TKey& k, const TValue& v, Node <TKey, TValue> *& par){
-    if(par == nullptr){
-        par = new Node<TKey,TValue>(k,v);
+void Avl<TKey,TValue>::set(const TKey& k, const TValue& v, Node <TKey, TValue> *& node){
+    if(node == nullptr){
+        node = new Node<TKey,TValue>(k,v);
         return;
     }
-    if(par->key == k)
-        par->val = v;
-    else if(par->key > k)
-        insert(k, v, par->left);
+    if(node->key == k)
+        node->val = v;
+    else if(node->key > k)
+        set(k, v, node->left);
     else
-        insert(k, v, par->right);
-    par->height = height(par);
-    balance(par);
+        set(k, v, node->right);
+    node->height = height(node);
+    balance(node);
 }
 
 template<class TKey, class TValue>
@@ -113,8 +135,8 @@ void Avl<TKey,TValue>::balance(Node <TKey, TValue> *& node){
 
 
 template<class TKey, class TValue>
-void Avl<TKey,TValue>::insert(const TKey& key, const TValue& value){
-    insert(key, value,root);
+void Avl<TKey,TValue>::set(const TKey& key, const TValue& value){
+    set(key, value,root);
 }
 
 #endif // AVL_H

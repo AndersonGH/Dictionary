@@ -7,5 +7,6 @@ SOURCES += \
         main.cpp
 
 HEADERS += \
+    NotFoundException.h \
     avl.h \
     dictionary.h

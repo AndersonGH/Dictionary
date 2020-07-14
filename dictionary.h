@@ -1,7 +1,8 @@
 #ifndef DICTIONARY_H
 #define DICTIONARY_H
-#include <iostream>
+
 #include "avl.h"
+#include "NotFoundException.h"
 
 template<class TKey, class TValue>
 class Dictionary{
@@ -13,11 +14,7 @@ public:
     virtual bool IsSet(const TKey& key) const = 0;
 };
 
-template<class TKey>
-class NotFoundException : public std::exception{
-public:
-    virtual const TKey& GetKey() const noexcept = 0;
-};
+
 
 template<class TKey, class TValue>
 class My_dictionary:public Dictionary <TKey,TValue>{
@@ -36,11 +33,18 @@ My_dictionary<TKey,TValue>::My_dictionary(): data(new Avl <TKey,TValue>()){}
 
 template<class TKey, class TValue>
 void My_dictionary<TKey,TValue>::Set(const TKey& key, const TValue& value){
-    this->data->insert(key, value);
+    this->data->set(key, value);
 }
 
 template<class TKey, class TValue>
-const TValue& My_dictionary<TKey,TValue>::Get(const TKey& key) const{}
+const TValue& My_dictionary<TKey,TValue>::Get(const TKey& key) const{
+    try {
+
+    } catch (NotFoundException <TKey> & e) {
+
+    }
+    return data->find(key);
+}
 
 template<class TKey, class TValue>
 bool My_dictionary<TKey,TValue>::IsSet(const TKey& key) const{}

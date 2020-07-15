@@ -25,17 +25,21 @@ public:
     ~Avl();
 
 private:
-    bool IsSet(const TKey& key, Node <TKey, TValue> *) const;
-    Node <TKey, TValue> * find(const TKey& key, Node <TKey, TValue> *);
+
+    bool IsSet(const TKey&, Node <TKey, TValue> *) const;
+    Node <TKey, TValue> * find(const TKey&, Node <TKey, TValue> *);
     int height(Node <TKey, TValue> *);
     void freeAvl(Node <TKey, TValue> *);
-    void set(const TKey& key, const TValue& value, Node <TKey, TValue> *&);
+    void set(const TKey&, const TValue&, Node <TKey, TValue> *&);
     void balance(Node <TKey, TValue> *&);
     void leftRotation(Node <TKey, TValue> *&);
     void rightRotation(Node <TKey, TValue> *&);
+
     Node <TKey, TValue> *root = nullptr;
 
+
 };
+
 
 template<class TKey, class TValue>
 Node<TKey,TValue>::Node(const TKey& k, const TValue& v, Node *l , Node *r):

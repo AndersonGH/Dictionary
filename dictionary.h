@@ -23,10 +23,16 @@ public:
     void Set(const TKey& key, const TValue& value);
     const TValue& Get(const TKey& key) const;
     bool IsSet(const TKey& key) const;
+    ~My_dictionary();
 private:
     Avl <TKey,TValue> *data;
 
 };
+
+template<class TKey, class TValue>
+My_dictionary<TKey,TValue>::~My_dictionary(){
+    delete data;
+}
 
 template<class TKey, class TValue>
 My_dictionary<TKey,TValue>::My_dictionary(): data(new Avl <TKey,TValue>()){}

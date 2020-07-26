@@ -8,7 +8,6 @@ template<class TKey, class TValue>
 class Dictionary{
 public:
     virtual ~Dictionary() = default;
-
     virtual const TValue& Get(const TKey& key) const = 0;
     virtual void Set(const TKey& key, const TValue& value) = 0;
     virtual bool IsSet(const TKey& key) const = 0;
@@ -20,13 +19,12 @@ template<class TKey, class TValue>
 class My_dictionary:public Dictionary <TKey,TValue>{
 public:
     My_dictionary();
-    void Set(const TKey& key, const TValue& value);
-    const TValue& Get(const TKey& key) const;
-    bool IsSet(const TKey& key) const;
-    ~My_dictionary();
+    void Set(const TKey& key, const TValue& value) override;
+    const TValue& Get(const TKey& key) const override;
+    bool IsSet(const TKey& key) const override;
+    ~My_dictionary() override;
 private:
     Avl <TKey,TValue> *data;
-
 };
 
 template<class TKey, class TValue>
@@ -55,8 +53,4 @@ template<class TKey, class TValue>
 bool My_dictionary<TKey,TValue>::IsSet(const TKey& key) const{
     return data->IsSet(key);
 }
-
-
-
-
 #endif // DICTIONARY_H
